@@ -1,35 +1,61 @@
 import datetime as d
+import logging
+
+
 
 
 class Vanne():
     def __init__(self, nom):
         self.nom = nom
         self.mode = "off"
+        self.state = self.check_output
         self.prog = {}
 
     def change_mode(self, mode):
         if mode in ['on', 'off', 'prog']:
+            logging.debug('Vanne.change_mode: de {} à {}'.format(self.mode, mode))
             self.mode = mode
 
     def add_prog(self, prog):
+        logging.debug('Vanne.add_prog: add {}'.format(prog))
         self.prog.setdefault(prog.nom, prog)
     
     def del_prog(self, name):
-        if name in self.prog
+        if name == 'all':
+            logging.debug('Vanne.del_prog: del all')
+            self.prog.clear()
+        elif name in self.prog:
+            logging.debug('Vanne.del_prog: del {}'.format(name))
+            del self.prog[name]
 
-    def state(self):
+    def check_output(self):
+        logging.debug('Vanne.check_output: check: {}'.format(self.mode))
         if self.mode == 'on':
+            logging.debug('Vanne.check_output: return OPEN')
             return 'open'
         if self.mode == 'off':
-            return 'close'
+            logging.debug('Vanne.check_output: return CLOSED')
+            return 'closed'
         if self.mode == 'prog':
-            return self.check_prog()
+            maintenant = d.datetime.now()
+            logging.debug('maintenant: {}:{}'.format(maintenant.hour, maintenant.minute))
+            result = self.check_prog()
+            for entries in result:
+                logging.debug('Vanne.check_output: entries= start: {} / stop: {}'.format(entries.start, entries.stop))
+                if entries.start.hour < maintenant.hour or (entries.start.hour == maintenant.hour & entries.minute < maintenant.minute):
+                    logging.debug('plus petit que start...')
+                
 
     def check_prog(self):
+        logging.debug('Vanne.check_prog')
         result = []
-        for k,v in self.prog.items():
-            result.append('{}: {}'.format(k, v))
+        for v in self.prog.values():
+            result.append(v)
+        logging.debug('Vanne.check_prog: check: {}'.format(self.prog))
         return result
+        
+    def __str__(self):
+        return '{}: mode={} prog={}'.format(self.nom, self.mode, self.prog.keys())
 
 
 class Program():
@@ -50,19 +76,18 @@ class Program():
 
         
 if __name__ == "__main__":
-
+    logging.basicConfig(format='%(levelname)s:%(message)s', level='DEBUG')
+    maintenant = d.datetime.now()
+    logging.debug(maintenant)
     v1 = Vanne("vanne 1")
     v1.change_mode('prog')
     prog1 = Program('prog_01')
     prog1.period['lundi'] = True
-    prog1.start = d.time(22, 45)
-    prog2 = Program('prog_02')
+    prog1.start = d.time(1,14)
+    prog1.stop = d.time(2,0)
     v1.add_prog(prog1)
     print(v1.state())
-    v1.add_prog(prog2)
-    print(v1.state())
-    v1.change_mode('on')
-    print(v1.state())
+  
 
 
 
