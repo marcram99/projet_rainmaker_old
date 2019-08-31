@@ -38,11 +38,13 @@ class Vanne():
             return 'closed'
         if self.mode == 'prog':
             maintenant = d.datetime.now()
-            logging.debug('maintenant: {}:{}'.format(maintenant.hour, maintenant.minute))
+            logging.debug('Vanne.check_output: maintenant: {}:{}'.format(maintenant.hour, maintenant.minute))
+            
             result = self.check_prog()
             for entries in result:
-                logging.debug('Vanne.check_output: entries= start: {} / stop: {}'.format(entries.start, entries.stop))
-                if entries.start.hour < maintenant.hour or (entries.start.hour == maintenant.hour & entries.minute < maintenant.minute):
+                
+                logging.debug('Vanne.check_output: hour= {} / {} minute= {}/{}'.format(maintenant.hour,entries.start.hour, maintenant.minute, entries.start.minute))
+                if entries.start.hour < maintenant.hour or ((entries.start.hour == maintenant.hour) &( entries.start.minute <= maintenant.minute)):
                     logging.debug('plus petit que start...')
                 
 
@@ -83,7 +85,7 @@ if __name__ == "__main__":
     v1.change_mode('prog')
     prog1 = Program('prog_01')
     prog1.period['lundi'] = True
-    prog1.start = d.time(1,14)
+    prog1.start = d.time(1,38)
     prog1.stop = d.time(2,0)
     v1.add_prog(prog1)
     print(v1.state())
