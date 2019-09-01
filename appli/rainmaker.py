@@ -38,27 +38,30 @@ class Vanne():
             return 'closed'
         if self.mode == 'prog':
             maintenant = d.datetime.now()
-            logging.debug('Vanne.check_output: maintenant: {}:{}'.format(maintenant.hour, maintenant.minute))
-            
+            print('Vanne.check_output: maintenant: {}:{} day = {}'.format(maintenant.hour, maintenant.minute, str(maintenant.isoweekday())))
             result = self.check_prog()
-            for entries in result:
-                
-                logging.debug('Vanne.check_output: hour= {} / {} minute= {}/{}'.format(maintenant.hour,entries.start.hour, maintenant.minute, entries.start.minute))
-                if entries.start.hour < maintenant.hour or ((entries.start.hour == maintenant.hour) &( entries.start.minute <= maintenant.minute)):
-                    logging.debug('plus petit que start...')
-                
+            for entries in result: 
+                logging.debug('Vanne.check_output: {}-{} period:{}'.format(entries.start,  entries.stop, [x for x in entries.period if entries.period[x]]))
+                cond_1 =entries.start.hour < maintenant.hour or ((entries.start.hour == maintenant.hour) &( entries.start.minute <= maintenant.minute))
+                cond_2 =entries.stop.hour > maintenant.hour or ((entries.stop.hour == maintenant.hour) &( entries.stop.minute > maintenant.minute))
+                week = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
+                liste_j = [week.index(x) + 1  for x in week if entries.period[x]]
+                cond_3 = maintenant.isoweekday() in liste_j
+                if cond_1 & cond_2 & cond_3:
+                    logging.debug('Vanne.check_output: OK: vanne ouverte pour {}'.format(entries.nom))
+                    return 'open'
+                else:
+                    logging.debug('Vanne.check_output: KO: vanne fermée pour {}'.format(entries.nom))
+            return 'closed'
 
+                
     def check_prog(self):
-        logging.debug('Vanne.check_prog')
         result = []
         for v in self.prog.values():
             result.append(v)
-        logging.debug('Vanne.check_prog: check: {}'.format(self.prog))
+        logging.debug('Vanne.check_prog: check: {}'.format(self.prog.keys()))
         return result
         
-    def __str__(self):
-        return '{}: mode={} prog={}'.format(self.nom, self.mode, self.prog.keys())
-
 
 class Program():
     week = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
@@ -85,9 +88,15 @@ if __name__ == "__main__":
     v1.change_mode('prog')
     prog1 = Program('prog_01')
     prog1.period['lundi'] = True
-    prog1.start = d.time(1,38)
-    prog1.stop = d.time(2,0)
+    prog1.period['dimanche'] = True
+    prog1.start = d.time(22, 0)
+    prog1.stop = d.time(22,30)
+    prog2 = Program('prog_02')
+    prog2.start = d.time(22,0)
+    prog2.stop = d.time(23, 0)
+    prog2.period['dimanche'] = True
     v1.add_prog(prog1)
+    v1.add_prog(prog2)
     print(v1.state())
   
 
