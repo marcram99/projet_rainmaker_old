@@ -22,6 +22,7 @@ bout_prog.onclick = function(){
     bout_off.className = inactive
     bout_prog.className = active
 }
+
 window.addEventListener("DOMContentLoaded", (event) => {
     console.log("DOM entièrement chargé et analysé")
     $.post("/",
