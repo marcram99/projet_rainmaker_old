@@ -57,6 +57,12 @@ class Vanne():
         
     def params(self):
         return {self.nom : [self.mode, self.state(), self.prog.keys()]}
+    
+    def export(self):
+        p_liste = []
+        for elem in self.prog.values:
+            p_liste.append([elem[nom]])
+
 
 class Program():
     week = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']

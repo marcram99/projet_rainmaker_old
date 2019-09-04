@@ -9,24 +9,45 @@ bout_on.onclick = function(){
     bout_on.className = active
     bout_off.className = inactive
     bout_prog.className = inactive
+    $.post("/",
+        {'command':'on'},
+        function(results){
+            var res = JSON.parse(results)
+            console.log(res)  
+        } 
+    )
 }
 bout_off.onclick = function(){
     event.preventDefault()
     bout_on.className = inactive
     bout_off.className = active
     bout_prog.className = inactive
+    $.post("/",
+        {'command':'off'},
+        function(results){
+            var res = JSON.parse(results)
+            console.log(res)  
+        } 
+    )
 }
 bout_prog.onclick = function(){
     event.preventDefault()
     bout_on.className = inactive
     bout_off.className = inactive
     bout_prog.className = active
+    $.post("/",
+        {'command':'prog'},
+        function(results){
+            var res = JSON.parse(results)
+            console.log(res['progs'])  
+        } 
+    )
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
     console.log("DOM entièrement chargé et analysé")
     $.post("/",
-        {'requete':'intéro'},
+        {'command':'update'},
         function(results){
             var res = JSON.parse(results)
             console.log(res)  
