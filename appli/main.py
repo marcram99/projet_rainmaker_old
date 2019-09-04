@@ -27,7 +27,7 @@ def main():
             return json.dumps({'retour':'commande off validée'})
         if params['command'] == 'prog':
             print (v1.prog.values())
-            return json.dumps({'retour':'commande prog validée'})
+            return v1.infos()
         if params['command'] == 'update':
             print(params)
             return json.dumps({'retour':'ok'})

@@ -39,7 +39,7 @@ bout_prog.onclick = function(){
         {'command':'prog'},
         function(results){
             var res = JSON.parse(results)
-            console.log(res['progs'])  
+            console.log(res)  
         } 
     )
 }

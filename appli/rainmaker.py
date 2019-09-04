@@ -1,11 +1,12 @@
 import datetime as d
 import logging
+import json
 
 class Vanne():
     def __init__(self, nom):
         self.nom = nom
         self.mode = "off"
-        self.state = self.check_output
+        self.state = self.check_output()
         self.prog = {}
 
     def change_mode(self, mode):
@@ -58,10 +59,15 @@ class Vanne():
     def params(self):
         return {self.nom : [self.mode, self.state(), self.prog.keys()]}
     
-    def export(self):
-        p_liste = []
-        for elem in self.prog.values:
-            p_liste.append([elem[nom]])
+    def infos(self):
+        result = {'nom': self.nom}
+        result.setdefault('mode', self.mode)
+        result.setdefault('state', self.state)
+        progs = []
+        for k,v in self.prog.items():
+            result.setdefault(k, v.infos())
+        return json.dumps(result)
+
 
 
 class Program():
@@ -76,9 +82,13 @@ class Program():
     def __str__(self):
         period = [x for x in self.period if self.period[x] ]
         return '{} => start:{} stop:{} période: {}'.format(self.nom, self.start, self.stop, period)
-    
-    def params(self):
-        return {self.nom : [self.start, self.stop, self.period]}
+     
+    def infos(self):
+        result = {'nom': self.nom}
+        result.setdefault('start', (self.start.hour, self.start.minute))
+        result.setdefault('stop', (self.stop.hour, self.stop.minute))
+        result.setdefault('period',self.period)
+        return result
 
         
 if __name__ == "__main__":
@@ -98,8 +108,9 @@ if __name__ == "__main__":
     v1.add_prog(prog1)
     v1.add_prog(prog2)
     v1.change_mode('prog')
-    print(v1.state())
-    print(v1.params().values())
+    print(v1.state)
+   
+    print(v1.infos())
   
 
 
