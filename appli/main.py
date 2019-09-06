@@ -11,8 +11,8 @@ v1 = Vanne('vanne_1')
 p1 = Program('prog_1')
 p1.period['lundi'] = True
 p1.period['dimanche'] = True
-p1.start = d.time(22, 0)
-p1.stop = d.time(22,30)
+p1.start = d.time(1, 1)
+p1.stop = d.time(2, 2)
 v1.add_prog(p1)
 v_list = [v1]
 #---------------------
@@ -26,10 +26,8 @@ def main():
         if params['command'] == 'off':
             return json.dumps({'retour':'commande off validée'})
         if params['command'] == 'prog':
-            print (v1.prog.values())
-            return v1.infos()
+            return json.dumps({'retour':'commande prog validée'})    
         if params['command'] == 'update':
-            print(params)
-            return json.dumps({'retour':'ok'})
+            return v1.infos()
 
     return render_template('main.html')
