@@ -5,22 +5,32 @@
     {% endblock %} 
 {% endblock %} 
 {% block main %} 
-<div class="row col col-xs-11 col-md-6 m-2 p-2 border rounded border-dark">
+<div class="row col-11 col-sm-11 m-2 p-2 border rounded border-dark">
     <span class="col-12 ">Vanne 1:</span> 
-    <div class="col-10  p-2 pl-4">
-        <button id="v1_on" class="col-3 btn btn-outline-primary ml-2" >ON</button>
-        <button id="v1_off" class="col-3 btn btn-primary ml-2 " >OFF</button>
-        <button id="v1_prog" class="col-3 btn btn-outline-primary ml-2 " >PROG</button>
+    <div class="col-10 p-2 pl-4">
+        <button id="v1_on" class="col col-sm-3 btn btn-outline-primary ml-2 mb-1" >ON</button>
+        <button id="v1_off" class="col col-sm-3 btn btn-primary ml-2 mb-1" >OFF</button>
+        <button id="v1_prog" class="col col-sm-3 btn btn-outline-primary ml-2 mb-1" >PROG</button>
     </div>
-    <div class="col-10  border rounded border-dark p-2 pl-4">
-        <span id="p_nom">Nom : </span> :
-        <span id="p_start">Start time : </span> /
-        <span id="p_stop">Stop time : </span> //
-        <span id="p_period">Jours actifs : </span>
-    </div>
-    <div class="col-10  border rounded border-dark p-2 pl-4">
-        <span >Prog sur cette vanne:</span>
-    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 id="p_jour" class="card-title text-center">PROG</h4>
+            <div class="card-text border rounded p-2 text-center mb-2">
+                <span id="p_nom" class="mr-2">nom prog : </span>
+                <span id="p_start" class="btn btn-secondary btn-sm mr-2">Start time : </span>
+                <span id="p_stop" class="btn btn-secondary btn-sm mr-2">Stop time : </span>
+            </div>
+            <div class="card-text border rounded p-2">
+                <span id="lundi" class="badge badge-secondary mr-2">LUN</span>
+                <span id="mardi" class="badge badge-secondary mr-2">MAR</span>
+                <span id="mercredi" class="badge badge-secondary mr-2">MER</span>
+                <span id="jeudi" class="badge badge-secondary mr-2">JEU</span>
+                <span id="vendredi" class="badge badge-secondary mr-2">VEN</span>
+                <span id="samedi" class="badge badge-secondary mr-2">SAM</span>
+                <span id="dimanche" class="badge badge-secondary mr-2">DIM</span>
+            </div>
+        </div>
+      </div>
 </div>
 
 

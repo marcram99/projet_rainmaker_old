@@ -8,8 +8,10 @@ from .rainmaker import Vanne, Program
 
 #---------------------
 v1 = Vanne('vanne_1')
-p1 = Program('prog_1')
+p1 = Program('prog01')
 p1.period['lundi'] = True
+p1.period['mercredi'] = True
+
 p1.period['dimanche'] = True
 p1.start = d.time(1, 1)
 p1.stop = d.time(2, 2)

@@ -1,12 +1,12 @@
 var bout_on = document.getElementById('v1_on')
 var bout_off = document.getElementById('v1_off')
 var bout_prog = document.getElementById('v1_prog')
-var active = "col-3 btn btn-primary ml-2 "
-var inactive = "col-3 btn btn-outline-primary ml-2 "
+var active = "col col-sm-3 btn btn-primary ml-2 mb-1"
+var inactive = "col col-sm-3 btn btn-outline-primary ml-2 mb-1"
 var p1_nom = document.getElementById("p_nom")
 var p1_start = document.getElementById("p_start")
 var p1_stop = document.getElementById("p_stop")
-var p1_period = document.getElementById("p_period")
+var p1_period = document.getElementById("p_jour")
 
 bout_on.onclick = function(){
     event.preventDefault()
@@ -50,15 +50,27 @@ bout_prog.onclick = function(){
 function dig_2(numb){
     return numb.toLocaleString(undefined, {minimumIntegerDigits:2})
 }
+function jour_bg(val){
+    if(val == true){
+        return "badge badge-secondary mr-2"
+    }
+    else{
+        return "badge badge-light text-secondary mr-2"
+    }
+}
 function affiche_prog(prog){
     console.log(prog['start'])
     console.log(prog['stop'])
     console.log(prog['period'])
-    p1_nom.innerHTML = prog['nom']
+    p1_nom.innerHTML = prog['nom'] + ':'
     p1_start.innerHTML = dig_2(prog['start'][0]) + ':' + dig_2(prog['start'][1])
     p1_stop.innerHTML = dig_2(prog['stop'][0]) + ':' + dig_2(prog['stop'][1])
-    prog['period']
-    p1_period.innerHTML = prog['period']
+    for(var key in prog['period']){
+        var val = prog['period'][key]
+        console.log(key + ':' + val)
+        var prov = document.getElementById(key)
+        prov.className = jour_bg(prog['period'][key])
+    }
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -67,7 +79,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         {'command':'update'},
         function(results){
             var res = JSON.parse(results)
-            affiche_prog(res.prog_1) 
+            affiche_prog(res.prog01) 
         } 
     )       
 })
