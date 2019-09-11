@@ -33,3 +33,18 @@ def main():
             return v1.infos()
 
     return render_template('main.html')
+
+@app.route('/config', methods=['POST', 'GET'])
+def config():
+    if request.method == 'POST':
+        params = request.form.to_dict()
+        if params['command'] == 'on':
+            return json.dumps({'retour':'commande on validée'})
+        if params['command'] == 'off':
+            return json.dumps({'retour':'commande off validée'})
+        if params['command'] == 'prog':
+            return json.dumps({'retour':'commande prog validée'})    
+        if params['command'] == 'update':
+            return v1.infos()
+
+    return render_template('config.html')
