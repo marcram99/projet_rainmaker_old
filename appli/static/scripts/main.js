@@ -1,8 +1,8 @@
 var bout_on = document.getElementById('v1_on')
 var bout_off = document.getElementById('v1_off')
 var bout_prog = document.getElementById('v1_prog')
-var active = "col col-sm-3 btn btn-primary ml-2 mb-1"
-var inactive = "col col-sm-3 btn btn-outline-primary ml-2 mb-1"
+var active = "btn btn-secondary m-2"
+var inactive = "btn btn-outline-secondary m-2"
 var p1_nom = document.getElementById("p_nom")
 var p1_start = document.getElementById("p_start")
 var p1_stop = document.getElementById("p_stop")

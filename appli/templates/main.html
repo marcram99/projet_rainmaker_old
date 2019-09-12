@@ -5,22 +5,17 @@
     {% endblock %} 
 {% endblock %} 
 {% block main %} 
-<div class="row col-11 col-sm-11 m-2 p-2 border rounded border-dark">
-    <span class="col-12 ">Vanne 1:</span> 
-    <div class="col-10 p-2 pl-4">
-        <button id="v1_on" class="col col-sm-3 btn btn-outline-primary ml-2 mb-1" >ON</button>
-        <button id="v1_off" class="col col-sm-3 btn btn-primary ml-2 mb-1" >OFF</button>
-        <button id="v1_prog" class="col col-sm-3 btn btn-outline-primary ml-2 mb-1" >PROG</button>
+<div class="row col-12 m-2 p-2 border rounded border-dark" style="min-width:390px;">
+    <div class="card shadow  my-2 mx-3" style="max-width:280px;min-width:280px;" >
+        <a class="ml-2 mt-2 mb-3">Mode vanne 1 :</a>
+        <button id="v1_on" class="btn btn-outline-secondary m-2 " >ON</button>
+        <button id="v1_off" class="btn btn-secondary m-2" >OFF</button>
+        <button id="v1_prog" class="btn btn-outline-secondary m-2" >PROG</button>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <h4 id="p_jour" class="card-title text-center">PROG</h4>
-            <div class="card-text border rounded p-2 text-center mb-2">
-                <span id="p_nom" class="mr-2">nom prog : </span>
-                <span id="p_start" class="btn btn-secondary btn-sm mr-2">Start time : </span>
-                <span id="p_stop" class="btn btn-secondary btn-sm mr-2">Stop time : </span>
-            </div>
-            <div class="card-text border rounded p-2">
+    <!--------------------------- prog card ----------------------------->
+    <div class="card shadow col-10 my-2 mx-3" style="max-width:280px;" >
+        <div class="row no-gutters">
+            <div class="col-2 border-right text-left mr-3 my-1">
                 <span id="lundi" class="badge badge-secondary mr-2">LUN</span>
                 <span id="mardi" class="badge badge-secondary mr-2">MAR</span>
                 <span id="mercredi" class="badge badge-secondary mr-2">MER</span>
@@ -29,10 +24,90 @@
                 <span id="samedi" class="badge badge-secondary mr-2">SAM</span>
                 <span id="dimanche" class="badge badge-secondary mr-2">DIM</span>
             </div>
-        </div>
-      </div>
-</div>
+            <div class="col-8 ml-2">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        <h5 id="p_nom" class="card-title text-center">PROG 01</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <span>Start: </span>
+                        <span id="p_start" class="btn btn-secondary"> -- : -- </span>  
+                    </li>
+                    <li class="list-group-item">
+                            <span>Stop: </span>
+                            <span id="p_stop" class="btn btn-secondary"> -- : -- </span>  
+                    </li>
 
+                </ul>
+            </div>   
+        </div>
+        <div class="card-body text-center border-top">
+                <a href="{{ url_for('config') }}" class="badge badge-info ">modifier le programme</a>
+            </div>
+    </div>
+    <div class="card shadow col-10 m-2 " style="max-width:280px;" >
+        <div class="row no-gutters">
+            <div class="col-2 border-right text-center  mr-3 my-1">
+                <span id="lundi" class="badge badge-secondary mr-2">LUN</span>
+                <span id="mardi" class="badge badge-secondary mr-2">MAR</span>
+                <span id="mercredi" class="badge badge-secondary mr-2">MER</span>
+                <span id="jeudi" class="badge badge-secondary mr-2">JEU</span>
+                <span id="vendredi" class="badge badge-secondary mr-2">VEN</span>
+                <span id="samedi" class="badge badge-secondary mr-2">SAM</span>
+                <span id="dimanche" class="badge badge-secondary mr-2">DIM</span>
+            </div>
+            <div class="col-8 ml-2">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        <h5 id="p_nom" class="card-title text-center">PROG 02</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <span>Start: </span>
+                        <span id="p_start" class="btn btn-secondary"> -- : -- </span>  
+                    </li>
+                    <li class="list-group-item">
+                            <span>Stop: </span>
+                            <span id="p_stop" class="btn btn-secondary"> -- : -- </span>  
+                    </li>
+                </ul>
+            </div>   
+        </div>
+        <div class="card-body text-center border-top">
+            <a href="{{ url_for('config') }}" class="badge badge-info ">modifier le programme</a>
+        </div>
+    </div>
+    <div class="card shadow col-10 m-2 " style="max-width:280px;" >
+        <div class="row no-gutters">
+            <div class="col-2 border-right text-center  mr-3 my-1">
+                <span id="lundi" class="badge badge-secondary mr-2">LUN</span>
+                <span id="mardi" class="badge badge-secondary mr-2">MAR</span>
+                <span id="mercredi" class="badge badge-secondary mr-2">MER</span>
+                <span id="jeudi" class="badge badge-secondary mr-2">JEU</span>
+                <span id="vendredi" class="badge badge-secondary mr-2">VEN</span>
+                <span id="samedi" class="badge badge-secondary mr-2">SAM</span>
+                <span id="dimanche" class="badge badge-secondary mr-2">DIM</span>
+            </div>
+            <div class="col-8 ml-2">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">
+                        <h5 id="p_nom" class="card-title text-center">PROG 03</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <span>Start: </span>
+                        <span id="p_start" class="btn btn-secondary"> -- : -- </span>  
+                    </li>
+                    <li class="list-group-item">
+                            <span>Stop: </span>
+                            <span id="p_stop" class="btn btn-secondary"> -- : -- </span>  
+                    </li>
+                </ul>
+            </div>   
+        </div>
+        <div class="card-body text-center border-top">
+            <a href="{{ url_for('config') }}" class="badge badge-info ">modifier le programme</a>
+        </div>
+    </div>
+</div>
 
 <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
 {% endblock %}
