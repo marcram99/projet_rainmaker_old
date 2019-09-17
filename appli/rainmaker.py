@@ -63,6 +63,7 @@ class Vanne():
         result = {'nom': self.nom}
         result.setdefault('mode', self.mode)
         result.setdefault('state', self.state)
+        result.setdefault('nb_prog', len(self.prog))
         progs = []
         for k,v in self.prog.items():
             result.setdefault(k, v.infos())

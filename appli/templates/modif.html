@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block menu %} 
+    {% block navbar %} 
+        {{ super() }} 
+    {% endblock %} 
+{% endblock %} 
+{% block main %} 
+<div class="row col-11 col-sm-11 m-2 p-2">
+    <span class="col-12 m-2 p-2 ">Modification du programe:</span> 
+    <div class="shadow card ">
+        <div class="card-body">
+            <h4 id="prog01" class="card-title text-center">{{ prog|title }}</h4>
+            <div class="card-text border rounded p-2 text-center mb-2">
+                <div>
+                    <span class="mr-2">start time: </span>
+                    <input id="start" type="time" class="btn btn-secondary btn-sm m-2"></span>
+                </div>
+                <div>
+                    <span class="mr-2">stop time: </span>
+                    <input id="stop" type="time" class="btn btn-secondary btn-sm m-2"></span>
+                </div>
+            </div>
+            <div class="card-text border rounded p-2">
+                <span id="lundi" class="badge badge-secondary mr-2">LUN</span>
+                <span id="mardi" class="badge badge-secondary mr-2">MAR</span>
+                <span id="mercredi" class="badge badge-secondary mr-2">MER</span>
+                <span id="jeudi" class="badge badge-secondary mr-2">JEU</span>
+                <span id="vendredi" class="badge badge-secondary mr-2">VEN</span>
+                <span id="samedi" class="badge badge-secondary mr-2">SAM</span>
+                <span id="dimanche" class="badge badge-secondary mr-2">DIM</span>
+            </div>
+            <button id="valid" class="col  btn btn-info btn-small my-2 p-2" >VALID MODIF</button>
+            <button id="suprim" class="col  btn btn-danger btn-small my-2 p-2" >SUPRIMER PROG</button>
+        </div>
+      </div>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/modif.js') }}"></script>
+{% endblock %}
