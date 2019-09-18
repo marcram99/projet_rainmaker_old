@@ -66,4 +66,5 @@ def modif(prog):
             return json.dumps({'retour':'commande prog validée'})    
         if params['command'] == 'update':
             return v1.infos()
-    return render_template('modif.html',prog=prog)
+    start = request.args.get('start')
+    return render_template('modif.html',prog=prog, start=start)
