@@ -37,6 +37,13 @@ v1.add_prog(p3)
 def title(nom):
     return "{} {}".format(nom[:4].upper(), nom[4:])
 
+@app.template_filter()
+def badge(jour):
+    if jour:
+        return 'secondary'
+    else:
+        return 'light'
+    
 
 @app.route('/', methods=['POST', 'GET'])
 def main():
@@ -48,8 +55,7 @@ def main():
             return json.dumps({'retour':'commande off validée'})
         if params['command'] == 'prog':
             return json.dumps({'retour':'commande prog validée'})    
-        if params['command'] == 'update':
-            print(json.loads(v1.infos())['nb_prog']) 
+        if params['command'] == 'update': 
             return v1.infos()
 
     return render_template('main.html')
@@ -66,5 +72,16 @@ def modif(prog):
             return json.dumps({'retour':'commande prog validée'})    
         if params['command'] == 'update':
             return v1.infos()
-    start = request.args.get('start')
-    return render_template('modif.html',prog=prog, start=start)
+
+    p_dict = {'prog01': p1,
+              'prog02': p2,
+              'prog03': p3}
+    start = p_dict[prog].start
+    stop = p_dict[prog].stop
+    period = p_dict[prog].period
+    return render_template('modif.html',
+                           prog=prog,
+                           start=start,
+                           stop=stop,
+                           period=period,
+                           )

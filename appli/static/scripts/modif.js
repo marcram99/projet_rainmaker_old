@@ -17,8 +17,21 @@ var period = {'lundi':true,
               'vendredi':true,
               'samedi':true,
               'dimanche':true}
-/*------------------------------------*/
-week.forEach(function(jour){/* modifie la présentation des jours */
+
+/* recupère valeur periode au chargement de la page */
+window.addEventListener("DOMContentLoaded", (event) => {
+    console.log("DOM entièrement chargé et analysé")
+    week.forEach(function(jour){
+        if (jour.className == actif){
+            period[jour.id] = true
+        }
+        if (jour.className == inactif){
+            period[jour.id] = false
+        }
+    })
+})
+/* modifie period et badge lors du click sur jour */
+week.forEach(function(jour){
     jour.onclick = function(){
         event.preventDefault()
         if(jour.className == actif){
@@ -30,14 +43,39 @@ week.forEach(function(jour){/* modifie la présentation des jours */
             jour.className = actif
             period[jour.id] = true
         }
-        console.log(jour.id, period[jour.id]) 
     }
 })
+function valide(){
+    var ok = true
+    var message = ''
+    if (start.value >= stop.value){
+        ok = false
+        message = 'start time >= stop time'
+    }
+    var count = 0
+    for (var jour in period){
+        if (period[jour]){
+            count += 1
+        }
+    }
+    if (count == 0){
+        ok = false
+        message += 'pas de jours sélectionné'
+    }
+    if(ok){
+        message = 'programme valide'
+    }
+    return [ok, message]
+}
 valid.onclick = function(){
     event.preventDefault()
-    console.log('start: ' + start.value)
-    console.log('stop: ' + stop.value)
-    console.log(period)
+    var res = valide()
+    console.log(res[0], res[1])
+    if (res[0] == false){
+        console.log('modal...')
+        $("#erreur").modal('show')
+
+    }
 }
 suprim.onclick = function(){
     event.preventDefault()
