@@ -48,9 +48,13 @@ week.forEach(function(jour){
 function valide(){
     var ok = true
     var message = ''
-    if (start.value >= stop.value){
+    if (start.value > stop.value){
         ok = false
-        message = 'start time >= stop time'
+        message = 'start time > stop time'
+    }
+    if (start.value == stop.value){
+        ok = false
+        message = 'start time = stop time'
     }
     var count = 0
     for (var jour in period){
@@ -60,7 +64,7 @@ function valide(){
     }
     if (count == 0){
         ok = false
-        message += 'pas de jours sélectionné'
+        message += '- pas de jours sélectionné'
     }
     if(ok){
         message = 'programme valide'
@@ -70,11 +74,28 @@ function valide(){
 valid.onclick = function(){
     event.preventDefault()
     var res = valide()
-    console.log(res[0], res[1])
     if (res[0] == false){
-        console.log('modal...')
         $("#erreur").modal('show')
-
+        err_mess.innerHTML = res[1]
+    }
+    if (res[0]){
+        console.log('paramètres du programme ok')
+        console.log(window.location.href[-1])
+        prog = window.location.href
+        $.post(window.location.href,
+            {'command':'modif',
+             'prog':prog,
+             'start':start.value,
+             'stop':stop.value,
+             'period':period
+            },    
+            function(results){
+                var res = JSON.parse(results)
+                if (res['retour']=='ok'){
+                    document.location.href="/"  
+                }
+            }
+        )
     }
 }
 suprim.onclick = function(){

@@ -62,20 +62,32 @@ def main():
 
 @app.route('/modif/<prog>', methods=['POST', 'GET'])
 def modif(prog):
-    if request.method == 'POST':
-        params = request.form.to_dict()
-        if params['command'] == 'on':
-            return json.dumps({'retour':'commande on validée'})
-        if params['command'] == 'off':
-            return json.dumps({'retour':'commande off validée'})
-        if params['command'] == 'prog':
-            return json.dumps({'retour':'commande prog validée'})    
-        if params['command'] == 'update':
-            return v1.infos()
-
+    week = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
     p_dict = {'prog01': p1,
               'prog02': p2,
               'prog03': p3}
+    if request.method == 'POST':
+        print(params)
+        params = request.form.to_dict()
+        if params['command'] == 'modif': 
+            start_h = (int(params['start'][:2]))
+            start_m = (int(params['start'][3:5]))
+            stop_h = (int(params['stop'][:2]))
+            stop_m = (int(params['stop'][3:5]))
+            start = d.time(start_h, start_m)
+            stop = d.time(stop_h, stop_m)
+            prog = p_dict[params['prog'][-6:]]
+            prog.start = start
+            prog.stop = stop
+            for jours in week:
+                period = 'period[{}]'.format(jours)
+                if(params[period]):
+                    prog.period[jours] = True
+                else:
+                    prog.period[jours] = False
+            return json.dumps({'retour':'ok'})
+
+    
     start = p_dict[prog].start
     stop = p_dict[prog].stop
     period = p_dict[prog].period
