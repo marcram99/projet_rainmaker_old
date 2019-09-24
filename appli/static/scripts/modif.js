@@ -1,5 +1,6 @@
 var actif = 'badge badge-secondary mr-2'
 var inactif = 'badge badge-light mr-2'
+
 var start = document.getElementById('start')
 var stop = document.getElementById('stop')
 var lundi = document.getElementById('lundi')
@@ -9,6 +10,7 @@ var jeudi = document.getElementById('jeudi')
 var vendredi = document.getElementById('vendredi')
 var samedi = document.getElementById('samedi')
 var dimanche = document.getElementById('dimanche')
+
 var week = [lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche]
 var period = {'lundi':true, 
               'mardi':true,
@@ -80,7 +82,7 @@ valid.onclick = function(){
     }
     if (res[0]){
         console.log('paramètres du programme ok')
-        console.log(window.location.href[-1])
+        console.log(window.location.href)
         prog = window.location.href
         $.post(window.location.href,
             {'command':'modif',

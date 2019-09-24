@@ -16,9 +16,6 @@
                 <button id="v1_off" class="btn btn-secondary col-10 m-2" >OFF</button>
                 <button id="v1_prog" class="btn btn-outline-secondary col-10 m-2" >PROG</button>
             </li>
-            <li id="ajout" class="list-group-item">
-                <a href="{{ url_for('modif',prog='prog')}}" class="badge badge-info ">ajouter un programme</a>
-            </li>
         </ul> 
     </div>
     <!--------------------------- prog card 1 ----------------------------->
@@ -50,8 +47,9 @@
                 </ul>
             </div>   
         </div>
-        <div class="card-body text-center border-top">
-            <a id="mod_p1" href="{{ url_for('modif',prog='prog01') }}" class="badge badge-info ">modifier le programme</a>
+        <div class="card-body  border-top">
+            <a id="mod_p1" href="{{ url_for('modif',prog='prog01') }}" class="fa fa-pencil fa-lg" style="color:black;"></a>
+            <a id="act_p1" href="#" class="badge badge-info ml-5">ACTIF</a>  
         </div>
     </div>
     <!--------------------------- prog card 2 ----------------------------->
@@ -83,7 +81,8 @@
             </div>   
         </div>
         <div class="card-body text-center border-top">
-            <a href="{{ url_for('modif',prog='prog02') }}" class="badge badge-info ">modifier le programme</a>
+            <a id="mod_p2" href="{{ url_for('modif',prog='prog02') }}" class="badge badge-info mr-5">modifier</a>
+            <a id="act_p2" href="#" class="badge badge-info ml-5">ACTIF</a>
         </div>
     </div>
     <!--------------------------- prog card 3 ----------------------------->
@@ -115,7 +114,8 @@
             </div>   
         </div>
         <div class="card-body text-center border-top">
-            <a href="{{ url_for('modif',prog='prog03') }}" class="badge badge-info ">modifier le programme</a>
+            <a id="mod_p3" href="{{ url_for('modif',prog='prog03') }}" class="badge badge-info mr-5">modifier</a>
+            <a id="act_p3" href="#" class="badge badge-info ml-5">ACTIF</a>
         </div>
     </div>
 </div>
